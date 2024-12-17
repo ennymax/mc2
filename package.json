@@ -1,0 +1,37 @@
+{
+  "author": "",
+  "dependencies": {
+    "cypress-plugin-api": "^2.11.1",
+    "cypress-real-events": "^1.13.0",
+    "fs-extra": "^11.2.0",
+    "nodemailer": "^6.9.8",
+    "wait-until": "^0.0.2"
+  },
+  "description": "this framework will handle both ui and api test",
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "axios": "^1.6.5",
+    "cypress": "^13.16.1",
+    "cypress-wait-until": "^3.0.1",
+    "cypress-xpath": "^2.0.1",
+    "dotenv": "^16.4.1",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-canonical": "^42.8.1",
+    "eslint-plugin-canonical": "^4.18.0",
+    "eslint-plugin-cypress": "^2.15.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-unicorn": "^51.0.1",
+    "typescript": "^5.3.3"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "name": "cypresstest",
+  "scripts": {
+    "cy:run": "cypress run",
+    "lint": "eslint ./",
+    "lint-fix": "eslint --fix ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}
