@@ -50,10 +50,8 @@ and checks if deviation is within accepted tolerance
         // Use cy.then to ensure Cypress command chaining
         cy.convertToNumber(text.trim()).then((mc2Price) => {
           cy.convertToNumber(token.price).then((mobulaPrice) => {
-            // Store the values in aliases for reuse
-            cy.wrap(mc2Price).as('mc2Price');
-            cy.wrap(mobulaPrice).as('mobulaPrice');
 
+            //calculate the price deviation
             cy.calculatePriceDeviation(mc2Price, mobulaPrice).then(
               (deviation) => {
                 cy.log('Price Deviation:', deviation);
@@ -75,30 +73,33 @@ This method validates the token changes in 24H
 and calculates the deviation between the changes using custom commands
 and checks if deviation is within accepted tolerance
 */
-  validateChange24H(token) {
-    this.elements
-      .token24()
-      .invoke('text')
-      .then((text) => {
-        // Access mc3Price and mobulaPrice values from aliases
+validateChange24H(token) {
+  this.elements
+    .token24()
+    .invoke('text')
+    .then((text) => {
+      const mc224hoursChange = text.trim();
+      const mobula24hoursChange = token.changes;
+      
+      // Calculate the deviation
+      cy.calculatePriceDeviation(mc224hoursChange.replace('%', ''), mobula24hoursChange.replace('%', ''))
+        .then((deviation) => {
+          // Log the results for debugging
+          cy.log(
+            'Price Deviation:', deviation/100,
+            'MC2 24-hour Change:', mc224hoursChange,
+            'Mobula 24-hour Change:', mobula24hoursChange
+          );
 
-        (mobula24hoursChange) => {
-          // Calculate the deviation
-          cy.calculatePriceDeviation(
-            text.trim(),
-            token.changes,
-          ).then((deviation) => {
-            cy.log('Price Deviation:', deviation, ' mc2 24hours change: ', text.trim(), ' Mobula 24hours change: ', token.changes);
+          // Assert that the deviation is within acceptable limits
+          expect(deviation/100).to.be.lessThan(
+            5,
+            'Deviation exceeds the acceptable threshold'
+          );
+        });
+    });
+}
 
-            // Assert that the deviation is within acceptable limits
-            expect(deviation).to.be.lessThan(
-              5,
-              'Deviation exceeds the acceptable threshold',
-            );
-          });
-        }
-      });
-  }
 
   // Method to navigate back to the main page
   goBack() {
