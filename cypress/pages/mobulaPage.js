@@ -37,7 +37,7 @@ and handle alert
 
   // Click search token
   clickSearchField() {
-    this.elements.searchtokenField().click();
+    this.elements.searchtokenField().realClick();
     return this;
   }
 
@@ -62,7 +62,7 @@ searched results are verified and stored in enviromental variables
     // Load the tokens fixture and process each token
     cy.fixture('tokens').then((tokens) => {
       for (const token of tokens) {
-        this.gotoMobula();
+        //this.gotoMobula();
         this.clickSearchField();
         this.Searchtoken(token.name);
         cy.contains(token.name + token.symbol)

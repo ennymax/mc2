@@ -17,7 +17,13 @@ module.exports = defineConfig({
     responseTimeout: 6_000,
     retries: { openMode: 0, runMode: 0 },
     setupNodeEvents(on, _config) {
-     
+      on('before:browser:launch', (browser = {}, launchOptions) => {
+        if (browser.name === 'chrome' && browser.isHeadless === false) {
+          launchOptions.args.push('--incognito');
+        }
+        return launchOptions;
+      });
+    
     },
     snapshotOnly: true,
     testIsolation: false,

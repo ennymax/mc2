@@ -7,7 +7,9 @@ const mobulaPage = new MobulaPage();
 describe('Test to validate mc2 token information', () => {
   before('Fetch Token Details', () => {
     // Get token details from Mobula and store them in Cypress environment
-    mobulaPage.getTokenDetails();
+    mobulaPage
+      .gotoMobula()
+      .getTokenDetails();
   });
 
   it('Validates token information and price deviation on MC2', function () {
