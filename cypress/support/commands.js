@@ -39,16 +39,6 @@ Cypress.Commands.add('formatNumber', (number) => {
   return formattedNumber;
 });
 
-Cypress.Commands.add('calculatePercentageValue', (baseValue, percentage) => {
-  // Remove % and convert to float
-  const percentValue = Number.parseFloat(percentage.replace('%', ''));
-
-  // Calculate actual value
-  const actualValue = baseValue + (baseValue * percentValue) / 100;
-
-  // Return the calculated value
-  return actualValue;
-});
 
 Cypress.Commands.add('convertToNumber', (input) => {
   cy.wrap(null).then(() => {

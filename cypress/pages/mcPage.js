@@ -81,32 +81,22 @@ and checks if deviation is within accepted tolerance
       .invoke('text')
       .then((text) => {
         // Access mc3Price and mobulaPrice values from aliases
-        cy.get('@mc2Price').then((mc2Price) => {
-          cy.get('@mobulaPrice').then((mobulaPrice) => {
-            // Calculate the 24h change percentage for both mc3Price and mobulaPrice
-            cy.calculatePercentageValue(mc2Price, text.trim()).then(
-              (mc224hoursChange) => {
-                cy.calculatePercentageValue(mobulaPrice, token.changes).then(
-                  (mobula24hoursChange) => {
-                    // Calculate the deviation
-                    cy.calculatePriceDeviation(
-                      mc224hoursChange,
-                      mobula24hoursChange,
-                    ).then((deviation) => {
-                      cy.log('Price Deviation:', deviation);
 
-                      // Assert that the deviation is within acceptable limits
-                      expect(deviation).to.be.lessThan(
-                        5,
-                        'Deviation exceeds the acceptable threshold',
-                      );
-                    });
-                  },
-                );
-              },
+        (mobula24hoursChange) => {
+          // Calculate the deviation
+          cy.calculatePriceDeviation(
+            text.trim(),
+            token.changes,
+          ).then((deviation) => {
+            cy.log('Price Deviation:', deviation, ' mc2 24hours change: ', text.trim(), ' Mobula 24hours change: ', token.changes);
+
+            // Assert that the deviation is within acceptable limits
+            expect(deviation).to.be.lessThan(
+              5,
+              'Deviation exceeds the acceptable threshold',
             );
           });
-        });
+        }
       });
   }
 
