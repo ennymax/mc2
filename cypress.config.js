@@ -29,7 +29,7 @@ module.exports = defineConfig({
     testIsolation: false,
     viewportHeight: 1080,
     viewportWidth: 1920,
-    waitForAnimations: true,
+    waitForAnimations: false,
     watchForFileChanges: false,
     numTestsKeptInMemory: 0,
 
